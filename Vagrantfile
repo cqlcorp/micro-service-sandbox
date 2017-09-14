@@ -33,9 +33,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   (1..$num_instances).each do |instance_number|
     name = instance_number == 1 ? "manager" : "worker"
-    config.vm.define vm_name = "#{name}-#{instance_number}" do |host|
+    id = instance_number == 1 ? 1 : instance_number - 1
+    config.vm.define vm_name = "#{name}-#{id}" do |host|
       
-      host.vm.hostname = "#{name}-#{instance_number}"
+      host.vm.hostname = "#{name}-#{id}"
 
       config.vm.provider :virtualbox do |vb|
         config.ignition.hostname = vm_name
